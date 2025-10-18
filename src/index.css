@@ -1,3 +1,78 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --text: #0b1220;
+  --secondary: #475569;
+  --primary: #d97706;
+  --primary-ghost: rgba(217, 119, 6, 0.12);
+  --accent: #0d9488;
+  --accent-ghost: rgba(13, 148, 136, 0.12);
+  --border: #e2e8f0;
+  --danger: #ef4444;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+  --shadow-subtle: 0 6px 18px rgba(2, 6, 23, 0.06);
+  --nav-bg: rgba(248, 250, 252, 0.7);
+}
+
+[data-theme="dark"] {
+  --bg: #0b1220;
+  --surface: #0f172a;
+  --surface-2: #111827;
+  --text: #e5e7eb;
+  --secondary: #94a3b8;
+  --primary: #f59e0b;
+  --primary-ghost: rgba(245, 158, 11, 0.18);
+  --accent: #14b8a6;
+  --accent-ghost: rgba(20, 184, 166, 0.16);
+  --border: #1f2937;
+  --danger: #f87171;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --info: #60a5fa;
+  --shadow: 0 12px 32px rgba(2, 6, 23, 0.55);
+  --shadow-subtle: 0 8px 24px rgba(2, 6, 23, 0.4);
+  --nav-bg: rgba(15, 23, 42, 0.55);
+}
+
+.bg-app { background-color: var(--bg); }
+.text-app { color: var(--text); }
+.text-secondary { color: var(--secondary); }
+.bg-surface { background-color: var(--surface); }
+.bg-surface-2 { background-color: var(--surface-2); }
+.shadow-soft { box-shadow: var(--shadow); }
+.shadow-subtle { box-shadow: var(--shadow-subtle); }
+.border-token { border-color: var(--border); }
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 16px rgba(217, 119, 6, 0.25);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(217, 119, 6, 0.35);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+html {
+  scroll-behavior: smooth;
+}
