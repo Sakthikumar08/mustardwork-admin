@@ -52,17 +52,18 @@ const Layout = ({ children, admin }) => {
           {/* Logo */}
           <div className="p-6 border-b border-token">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-[color:var(--primary)] to-[color:var(--accent)] rounded-xl flex items-center justify-center shadow-soft">
-                  <span className="font-bold text-xl text-white">
-                    MW
-                  </span>
-                </div>
-                <div>
-                  <h1 className="font-bold text-lg text-app">MustardWorks</h1>
-                  <p className="text-xs text-secondary font-medium">Admin Dashboard</p>
-                </div>
-              </div>
+              <div className="flex flex-col items-center gap-3">
+    <img 
+      src="/logo.png" 
+      alt="Logo"
+      className="w-40 h-10 object-contain"
+    />
+  
+  <div className="text-center">
+    <h1 className="font-bold text-lg text-app">Admin Panel</h1>
+    <p className="text-xs text-secondary font-medium mt-1">MustardWorks</p>
+  </div>
+</div>
               <button
                 onClick={() => setSidebarOpen(false)}
                 className="lg:hidden p-2 hover:bg-surface-2 rounded-lg transition-colors"
