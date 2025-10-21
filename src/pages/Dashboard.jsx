@@ -70,16 +70,27 @@ const Dashboard = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center gap-3">
-        <LayoutDashboard className="w-8 h-8" style={{ color: "var(--primary)" }} />
-        <div>
-          <h1 className="text-3xl font-bold text-app">Dashboard</h1>
-          <p className="text-secondary">Welcome to MustardWorks Admin</p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="p-3 bg-gradient-to-br from-[color:var(--primary)] to-[color:var(--accent)] rounded-xl shadow-soft">
+            <LayoutDashboard className="w-7 h-7 text-white" />
+          </div>
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-bold text-app">Dashboard</h1>
+            <p className="text-secondary font-medium">Welcome to MustardWorks Admin</p>
+          </div>
         </div>
+        <button
+          onClick={loadDashboardData}
+          className="px-4 py-2.5 bg-surface-2 hover:bg-[color:var(--primary-ghost)] border border-token rounded-xl text-sm font-semibold text-app transition-all flex items-center gap-2 self-start sm:self-auto"
+        >
+          <TrendingUp className="w-4 h-4" />
+          Refresh
+        </button>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Total Projects */}
         <StatCard
           title="Total Projects"
@@ -131,24 +142,31 @@ const Dashboard = () => {
       </div>
 
       {/* Recent Projects */}
-      <div className="bg-surface rounded-xl shadow-subtle p-6">
-        <h2 className="text-xl font-bold text-app mb-4 flex items-center gap-2">
-          <FolderKanban className="w-5 h-5" style={{ color: "var(--primary)" }} />
+      <div className="bg-surface/80 backdrop-blur-sm rounded-2xl shadow-soft p-6 border border-token">
+        <h2 className="text-xl font-bold text-app mb-6 flex items-center gap-2">
+          <div className="p-2 bg-[color:var(--primary-ghost)] rounded-lg">
+            <FolderKanban className="w-5 h-5" style={{ color: "var(--primary)" }} />
+          </div>
           Recent Project Submissions
         </h2>
 
         {recentProjects.length === 0 ? (
-          <p className="text-secondary text-center py-8">No projects yet</p>
+          <div className="text-center py-12">
+            <AlertCircle className="w-12 h-12 text-secondary mx-auto mb-3" />
+            <p className="text-secondary font-medium">No projects yet</p>
+          </div>
         ) : (
           <div className="space-y-3">
             {recentProjects.map((project) => (
               <div
                 key={project._id}
-                className="flex items-center justify-between p-4 bg-surface-2 rounded-lg hover:shadow-subtle transition-all"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-surface-2/50 rounded-xl hover:shadow-subtle hover:scale-[1.01] transition-all border border-token"
               >
                 <div className="flex-1">
-                  <h3 className="font-semibold text-app">{project.userName}</h3>
-                  <p className="text-sm text-secondary">{project.projectType} • {project.email}</p>
+                  <h3 className="font-bold text-app mb-1">{project.userName}</h3>
+                  <p className="text-sm text-secondary font-medium">
+                    {project.projectType} • {project.email}
+                  </p>
                 </div>
                 <StatusBadge status={project.status} />
               </div>
@@ -172,23 +190,23 @@ const StatCard = ({ title, value, icon, color, trend }) => {
   }
 
   return (
-    <div className="bg-surface rounded-xl shadow-subtle p-6 hover:shadow-soft transition-all">
+    <div className="stat-card bg-surface/80 backdrop-blur-sm rounded-2xl shadow-soft p-6 border border-token">
       <div className="flex items-center justify-between mb-4">
         <div
-          className="p-3 rounded-lg"
-          style={{ backgroundColor: `${colorMap[color]}15` }}
+          className="p-3 rounded-xl shadow-subtle"
+          style={{ backgroundColor: `${colorMap[color]}20` }}
         >
           <div style={{ color: colorMap[color] }}>{icon}</div>
         </div>
         {trend && (
-          <div className="flex items-center gap-1 text-sm font-medium" style={{ color: "var(--success)" }}>
+          <div className="flex items-center gap-1 text-sm font-bold px-3 py-1 rounded-full" style={{ color: "var(--success)", backgroundColor: "var(--success)15" }}>
             <TrendingUp className="w-4 h-4" />
             {trend}
           </div>
         )}
       </div>
-      <h3 className="text-2xl font-bold text-app mb-1">{value}</h3>
-      <p className="text-sm text-secondary">{title}</p>
+      <h3 className="text-3xl font-bold text-app mb-1">{value}</h3>
+      <p className="text-sm text-secondary font-semibold">{title}</p>
     </div>
   )
 }
@@ -196,20 +214,24 @@ const StatCard = ({ title, value, icon, color, trend }) => {
 // Status Badge Component
 const StatusBadge = ({ status }) => {
   const statusConfig = {
-    pending: { label: "Pending", color: "var(--warning)", bg: "rgba(245, 158, 11, 0.1)" },
-    "in-review": { label: "In Review", color: "var(--info)", bg: "rgba(59, 130, 246, 0.1)" },
-    approved: { label: "Approved", color: "var(--success)", bg: "rgba(16, 185, 129, 0.1)" },
-    rejected: { label: "Rejected", color: "var(--danger)", bg: "rgba(239, 68, 68, 0.1)" },
-    "in-progress": { label: "In Progress", color: "var(--accent)", bg: "rgba(13, 148, 136, 0.1)" },
-    completed: { label: "Completed", color: "var(--success)", bg: "rgba(16, 185, 129, 0.1)" },
+    pending: { label: "Pending", color: "var(--warning)", bg: "rgba(245, 158, 11, 0.15)" },
+    "in-review": { label: "In Review", color: "var(--info)", bg: "rgba(59, 130, 246, 0.15)" },
+    approved: { label: "Approved", color: "var(--success)", bg: "rgba(16, 185, 129, 0.15)" },
+    rejected: { label: "Rejected", color: "var(--danger)", bg: "rgba(239, 68, 68, 0.15)" },
+    "in-progress": { label: "In Progress", color: "var(--accent)", bg: "rgba(13, 148, 136, 0.15)" },
+    completed: { label: "Completed", color: "var(--success)", bg: "rgba(16, 185, 129, 0.15)" },
   }
 
   const config = statusConfig[status] || statusConfig.pending
 
   return (
     <span
-      className="px-3 py-1 rounded-full text-xs font-semibold"
-      style={{ color: config.color, backgroundColor: config.bg }}
+      className="px-4 py-2 rounded-xl text-xs font-bold border"
+      style={{ 
+        color: config.color, 
+        backgroundColor: config.bg,
+        borderColor: config.color + "40"
+      }}
     >
       {config.label}
     </span>
