@@ -52,11 +52,11 @@ const Layout = ({ children, admin }) => {
           {/* Logo */}
           <div className="p-6 border-b border-token">
             <div className="flex items-center justify-between">
-              <div className="flex flex-col items-center gap-3">
+              <div className="flex flex-col items-center ">
     <img 
       src="/logo.png" 
       alt="Logo"
-      className="w-40 h-10 object-contain"
+      className="w-60 h-12 object-contain"
     />
   
   <div className="text-center">

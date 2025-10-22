@@ -72,7 +72,7 @@ const Dashboard = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-[color:var(--primary)] to-[color:var(--accent)] rounded-xl shadow-soft">
+          <div className=" bg-gradient-to-br from-[color:var(--primary)] to-[color:var(--accent)] rounded-xl shadow-soft">
             <LayoutDashboard className="w-7 h-7 text-white" />
           </div>
           <div>
