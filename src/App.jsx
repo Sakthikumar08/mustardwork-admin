@@ -8,6 +8,7 @@ import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
 import Projects from "./pages/Projects"
 import GalleryManagement from "./pages/GalleryManagement"
+import Users from "./pages/Users"
 import "./App.css"
 
 function App() {
@@ -82,6 +83,16 @@ function App() {
               <ProtectedRoute>
                 <Layout admin={admin}>
                   <GalleryManagement />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <Layout admin={admin}>
+                  <Users />
                 </Layout>
               </ProtectedRoute>
             }

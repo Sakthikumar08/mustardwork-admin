@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { projectService } from "../services/projects"
 import { galleryService } from "../services/gallery"
+import { authService } from "../services/auth"
 import { 
   LayoutDashboard, 
   FolderKanban, 
@@ -9,7 +10,8 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  AlertCircle
+  AlertCircle,
+  Users
 } from "lucide-react"
 
 const Dashboard = () => {
@@ -20,6 +22,7 @@ const Dashboard = () => {
     rejectedProjects: 0,
     totalGallery: 0,
     activeGallery: 0,
+    totalUsers: 0,
   })
   const [loading, setLoading] = useState(true)
   const [recentProjects, setRecentProjects] = useState([])
@@ -32,14 +35,16 @@ const Dashboard = () => {
     try {
       setLoading(true)
 
-      // Fetch all projects and gallery items
-      const [projectsData, galleryData] = await Promise.all([
+      // Fetch all projects, gallery items, and users
+      const [projectsData, galleryData, usersData] = await Promise.all([
         projectService.getAllProjects({ limit: 5, sortBy: "submittedAt", sortOrder: "desc" }),
         galleryService.getAllItems({ limit: 100 }),
+        authService.getAllUsers({ limit: 1 }).catch(() => ({ users: [], pagination: { totalUsers: 0 } })),
       ])
 
       const projects = projectsData?.projects || []
       const galleryItems = galleryData?.galleryItems || []
+      const totalUsers = usersData?.pagination?.totalUsers || 0
 
       // Calculate stats
       setStats({
@@ -49,6 +54,7 @@ const Dashboard = () => {
         rejectedProjects: projects.filter((p) => p.status === "rejected").length,
         totalGallery: galleryItems.length,
         activeGallery: galleryItems.filter((g) => g.isActive).length,
+        totalUsers: totalUsers,
       })
 
       setRecentProjects(projects.slice(0, 5))
@@ -138,6 +144,14 @@ const Dashboard = () => {
           value={stats.activeGallery}
           icon={<CheckCircle className="w-6 h-6" />}
           color="success"
+        />
+
+        {/* Total Users */}
+        <StatCard
+          title="Registered Users"
+          value={stats.totalUsers}
+          icon={<Users className="w-6 h-6" />}
+          color="info"
         />
       </div>
 

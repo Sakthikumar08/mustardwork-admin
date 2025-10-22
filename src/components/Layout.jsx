@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { authService } from "../services/auth"
-import { LayoutDashboard, FolderKanban, Image, LogOut, Menu, X } from "lucide-react"
+import { LayoutDashboard, FolderKanban, Image, LogOut, Menu, X, Users } from "lucide-react"
 import { useState } from "react"
 import ThemeToggle from "./ThemeToggle"
 import BackgroundGrid from "./BackgroundGrid"
@@ -24,6 +24,7 @@ const Layout = ({ children, admin }) => {
     { path: "/dashboard", icon: <LayoutDashboard className="w-5 h-5" />, label: "Dashboard" },
     { path: "/projects", icon: <FolderKanban className="w-5 h-5" />, label: "Projects" },
     { path: "/gallery", icon: <Image className="w-5 h-5" />, label: "Gallery" },
+    { path: "/users", icon: <Users className="w-5 h-5" />, label: "Users" },
   ]
 
   const isActive = (path) => location.pathname === path

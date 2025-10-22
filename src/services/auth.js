@@ -60,6 +60,18 @@ export const authService = {
   getToken: () => {
     return localStorage.getItem("adminToken")
   },
+
+  // Get all users (admin only)
+  getAllUsers: async (params = {}) => {
+    try {
+      const response = await api.get("/auth/users", { params })
+      const data = response?.data || response
+      return data?.data || data
+    } catch (error) {
+      console.error("[ADMIN AUTH] getAllUsers failed:", error.message)
+      throw error
+    }
+  },
 }
 
 export default authService
